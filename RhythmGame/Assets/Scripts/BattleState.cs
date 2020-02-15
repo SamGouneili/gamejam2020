@@ -58,9 +58,6 @@ public class BattleState : MonoBehaviour
     void Start()
     {
         bps = bpm/60;
-
-        // Populate petra_Menz;
-        
     }
 
 
@@ -78,6 +75,13 @@ public class BattleState : MonoBehaviour
         	print(currentState);
         }
 
+        if (Input.GetKeyDown("space")) {
+        	print(Time.time);
+        	Console.WriteLine("prevBeat = ", (totalBeat-1)*bps);
+        	Console.WriteLine("nextBeat = ", totalBeat*bps);
+        	print(getClosestBeat());
+        }
+
     }
 
     // Executes every beat
@@ -86,11 +90,21 @@ public class BattleState : MonoBehaviour
 
     	if (beat == getBeatTime()) {
     		// Change the state, reset beat
-    		// State changes happen here!!! 
+    		// State changes happen here!!!
+    		print("State has changed!"); 
     		currentState = getNextState();
 			beat = 0;
     	}
     }
+
+    double getClosestBeat(){
+    	//totalBeat -> next beat
+    	//totalBeat - 1 -> prev. beat
+    	double prevBeatDist = Math.Abs((totalBeat-1)*bps - Time.time);
+    	double nextBeatDist = Math.Abs((totalBeat*bps) - Time.time);
+    	return Math.Min(prevBeatDist, nextBeatDist);
+    }
+
 
 }
 
