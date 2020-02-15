@@ -65,7 +65,7 @@ public class BattleState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= totalBeat*bps) {
+        if (Time.time >= totalBeat/bps) {
         	++totalBeat; 
            	++beat;
 
@@ -77,8 +77,6 @@ public class BattleState : MonoBehaviour
 
         if (Input.GetKeyDown("space")) {
         	print(Time.time);
-        	Console.WriteLine("prevBeat = ", (totalBeat-1)*bps);
-        	Console.WriteLine("nextBeat = ", totalBeat*bps);
         	print(getClosestBeat());
         }
 
@@ -97,12 +95,12 @@ public class BattleState : MonoBehaviour
     	}
     }
 
-    double getClosestBeat(){
+    public double getClosestBeat(){
     	//totalBeat -> next beat
     	//totalBeat - 1 -> prev. beat
-    	double prevBeatDist = Math.Abs((totalBeat-1)*bps - Time.time);
-    	double nextBeatDist = Math.Abs((totalBeat*bps) - Time.time);
-    	return Math.Min(prevBeatDist, nextBeatDist);
+    	double prevBeatDist = Math.Abs((totalBeat-1)/bps - Time.time);
+    	double nextBeatDist = Math.Abs((totalBeat/bps) - Time.time);
+    	return Math.Min(prevBeatDist, nextBeatDist)*bps;
     }
 
 
