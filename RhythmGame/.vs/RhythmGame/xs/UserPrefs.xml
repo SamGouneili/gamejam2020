@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{793867B7-CF3B-D77D-3E90-3211AA357D6D}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleState.cs">
+    <Files>
+      <File FileName="Assets/Scripts/GameMode.cs" Line="14" Column="6" />
+      <File FileName="Assets/Scripts/MainMenu.cs" Line="13" Column="13" />
+      <File FileName="Assets/Scripts/BattleState.cs" Line="52" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="RhythmGame" expanded="True" selected="True" />
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.UnityEngine.TestRunner PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="7ac09568-cd73-4c62-8de2-328f9eeb5329" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/ajwb/Documents/GitHub/gamejam2020/RhythmGame/Assets/Scripts/MainMenu.cs" relfile="Assets/Scripts/MainMenu.cs" line="18" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
