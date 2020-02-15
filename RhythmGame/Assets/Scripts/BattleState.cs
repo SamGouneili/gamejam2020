@@ -12,51 +12,90 @@ public class BattleState : MonoBehaviour
 		Neutral
 	}
 
-	// struct StateChange {
-	// 	public int beat;
-	// 	public 
-	// }
-
 
 	private State currentState = State.Attack;
-	private State nextState = State.Defend;
 	public double bpm;
 	private double bps;
 
-	public int beatsToChangeState;
-	private int currentBeat = 0;
-
-	// Tuple<int, State>[] stateChanges {
-	// 	Tuple.Create(1, State.Attack),
-	// 	Tuple.Create(10, State.Defend),
-	// 	Tuple.Create(20, State.Neutral),
-	// 	Tuple.Create(25, State.Attack),
-	// 	Tuple.Create(35, State.Defend)
-	// };
+	public int attackTime;
+	public int defendTime;
+	public int neutralTime;
+	
+	private int totalBeat = 0;
+	private int beat = 0;
 
     // Start is called before the first frame update
+
+	int getBeatTime() {
+		switch (currentState) {
+			case State.Attack:
+				return attackTime;
+			case State.Defend:
+				return defendTime;
+			case State.Neutral:
+				return neutralTime;
+			default:
+				return attackTime;
+
+		}
+	}
+
+	State getNextState() {
+		switch (currentState) {
+			case State.Attack:
+				return State.Defend;
+			case State.Defend:
+				return State.Neutral;
+			case State.Neutral:
+				return State.Attack;
+			default: 
+				return State.Attack;
+		}
+	}
+
     void Start()
     {
         bps = bpm/60;
+
+        // Populate petra_Menz;
+        
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space")) {
-        	print(Time.time);
-        }
+        if (Time.time >= totalBeat*bps) {
+        	++totalBeat; --totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
+        	++beat;
 
-        if (Time.time >= currentBeat*bps) {
-        	print(++currentBeat);
-        	if (currentBeat%beatsToChangeState == 0) {
-        		// Swap current state with next state
-        		State tmp = currentState;
-        		currentState = nextState;
-        		nextState = tmp;
-        	}
+        	onBeat();
+
+        	print(totalBeat);
         	print(currentState);
         }
 
     }
+
+    // Executes every beat
+    void onBeat() {
+    	if (beat == getBeatTime()) {
+    		currentState = getNextState();
+			beat = 0;
+    	}
+    }
+
 }
