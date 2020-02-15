@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{793867B7-CF3B-D77D-3E90-3211AA357D6D}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerAttack.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Attack.cs">
     <Files>
       <File FileName="Assets/Scripts/GameMode.cs" Line="17" Column="31" />
       <File FileName="Assets/Scripts/MainMenu.cs" />
-      <File FileName="Assets/Scripts/BattleState.cs" Line="112" Column="1" />
+      <File FileName="Assets/Scripts/BattleState.cs" Line="100" Column="12" />
       <File FileName="Assets/Scripts/PlayerState.cs" Line="54" Column="43" />
-      <File FileName="Assets/Scripts/Attack.cs.cs" Line="12" Column="14" />
-      <File FileName="Assets/Scripts/PlayerAttack.cs" Line="5" Column="35" />
+      <File FileName="Assets/Scripts/Attack.cs.cs" Line="62" Column="34" />
+      <File FileName="Assets/Scripts/PlayerAttack.cs" Line="7" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
