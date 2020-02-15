@@ -20,6 +20,8 @@ public class BattleState : MonoBehaviour
 	public int attackTime;
 	public int defendTime;
 	public int neutralTime;
+
+	public AudioSource audio;
 	
 	private int totalBeat = 0;
 	private int beat = 0;
@@ -67,20 +69,8 @@ public class BattleState : MonoBehaviour
     void Update()
     {
         if (Time.time >= totalBeat*bps) {
-        	++totalBeat; --totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;--totalBeat; ++totalBeat;
-        	++beat;
+        	++totalBeat; 
+           	++beat;
 
         	onBeat();
 
@@ -92,10 +82,16 @@ public class BattleState : MonoBehaviour
 
     // Executes every beat
     void onBeat() {
+    	audio.Play();
+
     	if (beat == getBeatTime()) {
+    		// Change the state, reset beat
+    		// State changes happen here!!! 
     		currentState = getNextState();
 			beat = 0;
     	}
     }
 
 }
+
+
