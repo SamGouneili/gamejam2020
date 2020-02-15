@@ -73,9 +73,8 @@
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Managed/UnityEditor.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Managed/UnityEditor.Graphs.dll"
-/reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll"
-/reference:"/Users/ajwb/Documents/GitHub/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll"
+/reference:"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Core.dll"
@@ -291,9 +290,9 @@
 /define:ENABLE_LEGACY_INPUT_MANAGER
 /define:CSHARP_7_OR_LATER
 /define:CSHARP_7_3_OR_NEWER
-"/Users/ajwb/Documents/GitHub/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/ProjectGeneration/AssemblyNameProvider.cs"
-"/Users/ajwb/Documents/GitHub/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/ProjectGeneration/FileIO.cs"
-"/Users/ajwb/Documents/GitHub/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/ProjectGeneration/GUIDGenerator.cs"
-"/Users/ajwb/Documents/GitHub/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/ProjectGeneration/ProjectGeneration.cs"
-"/Users/ajwb/Documents/GitHub/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/VSCodeDiscovery.cs"
-"/Users/ajwb/Documents/GitHub/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/VSCodeScriptEditor.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/ProjectGeneration/AssemblyNameProvider.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/ProjectGeneration/FileIO.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/ProjectGeneration/GUIDGenerator.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/ProjectGeneration/ProjectGeneration.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/VSCodeDiscovery.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.vscode@1.1.4/Editor/VSCodeScriptEditor.cs"

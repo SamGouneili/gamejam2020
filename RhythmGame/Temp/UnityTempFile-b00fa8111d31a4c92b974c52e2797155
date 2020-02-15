@@ -1,14 +1,14 @@
 /target:library
 /nowarn:0169
-/out:"Temp/UnityEditor.UI.dll"
+/out:"Temp/Unity.Rider.Editor.dll"
 /debug:portable
 /optimize-
 /nostdlib+
 /preferreduilang:en-US
 /langversion:latest
-/reference:"Library/ScriptAssemblies/UnityEngine.UI.dll"
 /reference:"Library/ScriptAssemblies/UnityEditor.TestRunner.dll"
-/reference:"Library/ScriptAssemblies/UnityEngine.TestRunner.dll"
+/reference:"Library/ScriptAssemblies/UnityEditor.UI.dll"
+/reference:"Library/ScriptAssemblies/UnityEngine.UI.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ARModule.dll"
@@ -72,9 +72,8 @@
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Managed/UnityEditor.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Managed/UnityEditor.Graphs.dll"
-/reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll"
-/reference:"/Users/ajwb/Documents/GitHub/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll"
+/reference:"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.dll"
 /reference:"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Core.dll"
@@ -288,45 +287,27 @@
 /define:ENABLE_TILEMAP
 /define:ENABLE_TIMELINE
 /define:ENABLE_LEGACY_INPUT_MANAGER
-/define:PACKAGE_PHYSICS
-/define:PACKAGE_PHYSICS2D
-/define:PACKAGE_ANIMATION
+/define:TEST_FRAMEWORK
 /define:CSHARP_7_OR_LATER
 /define:CSHARP_7_3_OR_NEWER
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/EventSystem/EventSystemEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/EventSystem/EventTriggerEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/EventSystem/Physics2DRaycasterEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/EventSystem/PhysicsRaycasterEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/Properties/AssemblyInfo.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/AspectRatioFitterEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/ButtonEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/CanvasScalerEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/ContentSizeFitterEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/DropdownEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/GraphicEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/GridLayoutGroupEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/HorizontalOrVerticalLayoutGroupEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/ImageEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/InputFieldEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/InterceptedEventsPreview.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/LayoutElementEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/LayoutPropertiesPreview.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/MaskEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/MenuOptions.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/PrefabLayoutRebuilder.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/PropertyDrawers/AnimationTriggersDrawer.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/PropertyDrawers/ColorBlockDrawer.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/PropertyDrawers/DropdownOptionListDrawer.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/PropertyDrawers/FontDataDrawer.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/PropertyDrawers/NavigationDrawer.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/PropertyDrawers/SpriteStateDrawer.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/RawImageEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/RectMask2DEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/ScrollRectEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/ScrollbarEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/SelectableEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/SelfControllerEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/SliderEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/SpriteDrawUtility.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/TextEditor.cs"
-"/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Editor/UI/ToggleEditor.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/Discovery.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/EditorPluginInterop.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/LoggingLevel.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/PluginSettings.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/PostProcessors/RiderAssetPostprocessor.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/ProjectGeneration/FileIOProvider.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/ProjectGeneration/GUIDProvider.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/ProjectGeneration/ProjectGeneration.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/RiderInitializer.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/RiderScriptEditor.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/RiderScriptEditorData.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/UnitTesting/CallbackData.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/UnitTesting/CallbackInitializer.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/UnitTesting/RiderTestRunner.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/UnitTesting/TestEvent.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/UnitTesting/TestsCallback.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/Util/CommandLineParser.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/Util/FileSystemUtil.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/Util/LibcNativeInterop.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/Util/RiderMenu.cs"
+"/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/PackageCache/com.unity.ide.rider@1.1.4/Rider/Editor/Util/UnityUtils.cs"
