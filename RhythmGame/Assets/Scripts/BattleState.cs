@@ -21,12 +21,14 @@ public class BattleState : MonoBehaviour
 	public int defendTime;
 	public int neutralTime;
 
-	public AudioSource audio;
+	public AudioSource audio; // TESTING
+	public AudioSource music;
 	
 	private int totalBeat = 0;
 	private int beat = 0;
 
-    // Start is called before the first frame update
+	private bool startBeatFlag = false;
+	private double startTime;
 
 	int getBeatTime() {
 		switch (currentState) {
@@ -55,42 +57,64 @@ public class BattleState : MonoBehaviour
 		}
 	}
 
+    // Start is called before the first frame update
+
     void Start()
     {
         bps = bpm/60;
     }
 
 
-
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= totalBeat/bps) {
-        	++totalBeat; 
-           	++beat;
+    	if (startBeatFlag) {
+    		if (currentTime() >= totalBeat/bps) {
+	        	++totalBeat; 
+	           	++beat;
 
-        	onBeat();
+	        	onBeat();
 
-        	print(totalBeat);
-        	print(currentState);
-        }
-
-        if (Input.GetKeyDown("space")) {
-        	print(Time.time);
+	        	print(totalBeat);
+	        	print(currentState);
+	        }
+    	}
+        
+        // TESTING
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
         	print(getBeatDist());
+        }
+        // TESTING
+        if (Input.GetKeyDown(KeyCode.Space)) {
+        	startBeat();
         }
 
     }
 
-    // Executes every beat
+    // Begin the beat tracking
+    // Only should be called once - to start the beat.
+    public void startBeat() {
+    	Debug.Assert(!startBeatFlag);
+    	startBeatFlag = true;
+    	startTime = Time.time;
+    	music.Play();
+    }
+
+    // Return the current time with respect to the start time
+    // Only call this AFTER startBeat has been called.
+    private double currentTime() {
+    	Debug.Assert(startBeatFlag); 
+    	return Time.time - startTime;
+    }
+
+    // Executes on every beat
     void onBeat() {
     	audio.Play();
 
     	if (beat == getBeatTime()) {
     		// Change the state, reset beat
-    		// State changes happen here!!!
-    		print("State has changed!"); 
     		currentState = getNextState();
+    		print("State has changed!"); 
 			beat = 0;
     	}
     }
@@ -101,8 +125,8 @@ public class BattleState : MonoBehaviour
     public double getBeatDist(){
     	//totalBeat -> next beat
     	//totalBeat - 1 -> prev. beat
-    	double prevBeatDist = Math.Abs((totalBeat-1)/bps - Time.time);
-    	double nextBeatDist = Math.Abs((totalBeat/bps) - Time.time);
+    	double prevBeatDist = Math.Abs((totalBeat-1)/bps - currentTime());
+    	double nextBeatDist = Math.Abs((totalBeat/bps) - currentTime());
     	return Math.Min(prevBeatDist, nextBeatDist)*bps;
     }
 
