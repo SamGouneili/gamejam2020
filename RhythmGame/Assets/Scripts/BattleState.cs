@@ -6,12 +6,25 @@ using UnityEngine;
 
 public class BattleState : MonoBehaviour
 {
+    public event EventHandler<StateChangedArgs> StateChanged;
+    public event EventHandler<PlayerHealthChangedArgs> PlayerHealthChanged;
+    public event EventHandler<EnemyHealthChangedArgs> EnemyHealthChanged;
+    public event EventHandler<DamageEventArgs> DamageEvent;
+    public event EventHandler<TimerBarChangedArgs> TimerBarChanged;
+    public event EventHandler<BeatNotifyArgs> BeatNotify;
+    public event EventHandler<PlayerDirectionChangedArgs> PlayerDirectionChanged;
+    public event EventHandler<EnemyDirectionChangedArgs> EnemyDirectionChanged;
+    public event EventHandler<ComboAmountChangedArgs> ComboAmountChanged;
+    public event EventHandler<DialogueEventArgs> DialogueEvent;
+
+
 	enum State {
 		Attack,
 		Defend,
 		Neutral
 	}
 
+    private Attack AttackCalculator;
 
 	private State currentState = State.Attack;
 	public double bpm;
@@ -20,6 +33,8 @@ public class BattleState : MonoBehaviour
 	public int attackTime;
 	public int defendTime;
 	public int neutralTime;
+
+    private int ComboAmount;
 
 	public AudioSource audio; // TESTING
 	public AudioSource music;
@@ -62,6 +77,7 @@ public class BattleState : MonoBehaviour
     void Start()
     {
         bps = bpm/60;
+        AttackCalculator = FindObjectOfType<Attack>();
     }
 
 
@@ -130,7 +146,49 @@ public class BattleState : MonoBehaviour
     	return Math.Min(prevBeatDist, nextBeatDist)*bps;
     }
 
+    public double PerformAttack()
+    {
+        return AttackCalculator.PerformAttack();
+    }
 
+    public class StateChangedArgs : EventArgs
+    {
+
+    }
+
+    public class PlayerHealthChangedArgs : EventArgs
+    {
+    }
+
+    public class EnemyHealthChangedArgs : EventArgs
+    {
+    }
+
+    public class DamageEventArgs : EventArgs
+    {
+    }
+
+    public class TimerBarChangedArgs : EventArgs
+    {
+    }
+
+    public class BeatNotifyArgs : EventArgs
+    {
+    }
+
+    public class PlayerDirectionChangedArgs : EventArgs
+    {
+    }
+
+    public class EnemyDirectionChangedArgs : EventArgs
+    {
+    }
+
+    public class ComboAmountChangedArgs : EventArgs
+    {
+    }
+
+    public class DialogueEventArgs : EventArgs
+    {
+    }
 }
-
-
