@@ -77,7 +77,7 @@ public class BattleState : MonoBehaviour
 
         if (Input.GetKeyDown("space")) {
         	print(Time.time);
-        	print(getClosestBeat());
+        	print(getBeatDist());
         }
 
     }
@@ -95,7 +95,10 @@ public class BattleState : MonoBehaviour
     	}
     }
 
-    public double getClosestBeat(){
+    // Returns the closest distance to the next or previous beat
+    // Return value is a double between 0 and 0.5
+    // Represents the percentage of how far off the input was from the bpm
+    public double getBeatDist(){
     	//totalBeat -> next beat
     	//totalBeat - 1 -> prev. beat
     	double prevBeatDist = Math.Abs((totalBeat-1)/bps - Time.time);
