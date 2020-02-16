@@ -5,10 +5,15 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     private const double BASE_DAMAGE_HERO = 10.0;
+    private const double BASE_DAMAGE_ENEMY = 25.0;
     private const double PERFECT_TIMING_MULT = 1.25;
     private const double GOOD_TIMING_MULT = 1.00;
     private const double OKAY_TIMING_MULT = 0.75;
     private const double MISS_TIMING_MULT = 0.00;
+    private const double PERFECT_DEFENCE_MULT = 0.0;
+    private const double GOOD_DEFENCE_MULT = 0.20;
+    private const double OKAY_DEFENCE_MULT = 0.50;
+    private const double MISS_DEFENCE_MULT = 1.00;
     private const double DIRECTION_BONUS_MULT = 1.10;
     private const double PERFECT_TIMING_THRESH = 0.0;
     private const double GOOD_TIMING_THRESH = 0.1;
@@ -33,7 +38,7 @@ public class Attack : MonoBehaviour
 
     public double PerformAttack()
     {
-        bool Hit = !IsEnemyBlock();
+        bool Hit = !IsBlock();
         AttackTiming Timing = GetTiming();
         if (Timing == AttackTiming.Miss)
         {
@@ -48,6 +53,27 @@ public class Attack : MonoBehaviour
         }
 
         return 0.0;
+    }
+
+    public double PerformDefence()
+    {
+        bool Hit = !IsBlock();
+        AttackTiming BlockTiming = GetTiming();
+        if (BlockTiming == AttackTiming.Miss)
+        {
+            BS.ResetComboCounter();
+            Hit = true;
+        }
+
+        if (Hit)
+        {
+            return CalculateDamageToPlayer(IsDirectionBonus(), GetTiming());
+        }
+        else
+        {
+            BS.IncrementComboCounter();
+            return 0.0;
+        }
     }
 
     private double CalculateDamage(bool DirectionBonus, AttackTiming TimingBonus)
@@ -70,6 +96,33 @@ public class Attack : MonoBehaviour
                 break;
             case (AttackTiming.Miss):
                 Damage *= MISS_TIMING_MULT;
+                break;
+            default:
+                break;
+        }
+        return Damage;
+    }
+
+    private double CalculateDamageToPlayer(bool DirectionBonus, AttackTiming TimingBonus)
+    {
+        double Damage = BASE_DAMAGE_ENEMY;
+        if (DirectionBonus)
+        {
+            Damage *= DIRECTION_BONUS_MULT;
+        }
+        switch (TimingBonus)
+        {
+            case (AttackTiming.Perfect):
+                Damage *= PERFECT_DEFENCE_MULT;
+                break;
+            case (AttackTiming.Good):
+                Damage *= GOOD_DEFENCE_MULT;
+                break;
+            case (AttackTiming.Okay):
+                Damage *= OKAY_DEFENCE_MULT;
+                break;
+            case (AttackTiming.Miss):
+                Damage *= MISS_DEFENCE_MULT;
                 break;
             default:
                 break;
@@ -117,7 +170,7 @@ public class Attack : MonoBehaviour
         return Timing;
     }
 
-    private bool IsEnemyBlock()
+    private bool IsBlock()
     {
         bool Block = false;
 

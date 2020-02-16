@@ -52,6 +52,8 @@ public class BattleState : MonoBehaviour
 	public int defendTime;
 	public int neutralTime;
 
+    public GameObject scroll;
+
     private int ComboAmount = 0;
 
 	public AudioSource audio; // TESTING
@@ -105,6 +107,11 @@ public class BattleState : MonoBehaviour
         return EnemyAttackDirection;
     }
 
+    public void SetEnemyAttackDirection(AttackDirection NewAttackDirection)
+    {
+        EnemyAttackDirection = NewAttackDirection;
+    }
+
     // Start is called before the first frame update
 
     void Start()
@@ -136,6 +143,7 @@ public class BattleState : MonoBehaviour
         // TESTING
         if (Input.GetKeyDown(KeyCode.Space)) {
         	startBeat();
+            PlayerDied();
         }
 
     }
@@ -143,19 +151,19 @@ public class BattleState : MonoBehaviour
     public void ResetComboCounter()
     {
         ComboAmount = 0;
-        ComboAmountChanged(this, new ComboAmountChangedArgs(ComboAmount));
+        //ComboAmountChanged(FindObjectOfType<BattleState>(), new ComboAmountChangedArgs(ComboAmount));
     }
 
     public void IncrementComboCounter()
     {
         ComboAmount++;
-        ComboAmountChanged(this, new ComboAmountChangedArgs(ComboAmount));
+        //ComboAmountChanged(FindObjectOfType<BattleState>(), new ComboAmountChangedArgs(ComboAmount));
     }
 
     public void SetCurrentState(State NewState)
     {
         currentState = NewState;
-        StateChanged(this, new StateChangedArgs(NewState));
+        //StateChanged(FindObjectOfType<BattleState>(), new StateChangedArgs(NewState));
     }
 
     // Begin the beat tracking
@@ -200,7 +208,18 @@ public class BattleState : MonoBehaviour
     public void ProcessInput(AttackDirection InputDirection)
     {
         SetAttackDirection(InputDirection);
-        double DamageDealt = PerformAttack();
+        // need path for player defending
+        if (currentState == State.Defend)
+        {
+            double DamageDealt = PerformDefence();
+            DealDamageToPlayer(DamageDealt);
+        }
+        // path for player attacking
+        else if (currentState == State.Attack)
+        {
+            double DamageDealt = PerformAttack();
+            DealDamageToEnemy(DamageDealt);
+        }
     }
 
     private double PerformAttack()
@@ -208,12 +227,36 @@ public class BattleState : MonoBehaviour
         return AttackCalculator.PerformAttack();
     }
 
-    private void DealDamageToPlayer(double DamageToDeal)
+    private double PerformDefence()
     {
-        
+        return AttackCalculator.PerformDefence();
     }
 
-    // CALLED ON SETCURRENTSTATE()
+    private void DealDamageToPlayer(double DamageToDeal)
+    {
+        CurrPlayerHealth -= DamageToDeal;
+        if (CurrPlayerHealth <= 0)
+        {
+            // END BATTLEj
+        }
+        DamageEvent(FindObjectOfType<BattleState>(), new DamageEventArgs(DamageToDeal));
+        //PlayerHealthChanged(FindObjectOfType<BattleState>(), new PlayerHealthChangedArgs(CurrPlayerHealth, DamageToDeal));
+    }
+
+    private void DealDamageToEnemy(double DamageToDeal)
+    {
+        CurrEnemyHealth -= DamageToDeal;
+        //EnemyHealthChanged(FindObjectOfType<BattleState>(), new EnemyHealthChangedArgs(CurrEnemyHealth, DamageToDeal));
+    }
+
+    private void PlayerDied()
+    { 
+        scroll.SetActive(true);
+        Stats stats = scroll.GetComponent<Stats>();
+
+    }
+
+    // CALLED ON SETCURRENTSTATE() DONE
     public class StateChangedArgs : EventArgs
     {
         public StateChangedArgs(State InputState)
@@ -223,7 +266,7 @@ public class BattleState : MonoBehaviour
         public State NewState { get; private set; }
     }
 
-    // CALLED ON SETPLAYERHEALTH()
+    // CALLED ON SETPLAYERHEALTH() DONE
     public class PlayerHealthChangedArgs : EventArgs
     {
         public PlayerHealthChangedArgs(double InNewHealth, double InAmountDiff)
@@ -236,7 +279,7 @@ public class BattleState : MonoBehaviour
         public double AmountDiff { get; private set; }
     }
 
-    // CALLED ON SETENEMYHEALTH()
+    // CALLED ON SETENEMYHEALTH() DONE
     public class EnemyHealthChangedArgs : EventArgs
     {
         public EnemyHealthChangedArgs(double InNewHealth, double InAmountDiff)

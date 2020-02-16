@@ -1,22 +1,18 @@
-﻿<Properties StartupConfiguration="{793867B7-CF3B-D77D-3E90-3211AA357D6D}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleState.cs">
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/InputManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameMode.cs" Line="17" Column="31" />
+      <File FileName="Assets/Scripts/GameMode.cs" Line="21" Column="6" />
       <File FileName="Assets/Scripts/MainMenu.cs" Line="19" Column="25" />
-      <File FileName="Assets/Scripts/BattleState.cs" Line="181" Column="1" />
-      <File FileName="Assets/Scripts/Attack.cs" Line="18" Column="28" />
+      <File FileName="Assets/Scripts/BattleState.cs" Line="144" Column="26" />
+      <File FileName="Assets/Scripts/Attack.cs" Line="63" Column="10" />
       <File FileName="Assets/Scripts/PlayerState.cs" Line="54" Column="43" />
+      <File FileName="Assets/Scripts/Stats.cs" Line="25" Column="1" />
+      <File FileName="Assets/Scripts/InputManager.cs" Line="18" Column="38" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="RhythmGame" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="BattleState.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
+          <Node name="RhythmGame" expanded="True" selected="True" />
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
@@ -25,9 +21,11 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>Assembly-CSharp.csproj</String>
+  </DisabledProjects>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.UnityEngine.TestRunner PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="9f75891b-b27e-4cba-b789-6112999d7b20" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

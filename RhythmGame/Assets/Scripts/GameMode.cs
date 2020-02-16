@@ -5,6 +5,21 @@ using UnityEngine;
 
 public class GameMode : MonoBehaviour
 {
+    public static GameMode Instance;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     //BattleState Battle = GetComponent<BattleState>();
     // Start is called before the first frame update
     void Start()
