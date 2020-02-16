@@ -13,10 +13,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Background
+  - Boss
+  - Player
+  - Effects
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 206521751
+    locked: 0
+  - name: Boss
+    uniqueID: 2547881585
+    locked: 0
+  - name: Player
+    uniqueID: 3488806727
+    locked: 0
+  - name: Effects
+    uniqueID: 1722380039
     locked: 0
