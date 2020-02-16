@@ -15,17 +15,17 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(UpArrow)) {
-        	ProcessInput(BattleState.AttackDirection.Up);
-        }
-        if (Input.GetKeyDown(DownArrow)) {
-        	ProcessInput(BattleState.AttackDirection.Down);
-        }
-        if (Input.GetKeyDown(RightArrow)) {
-        	ProcessInput(BattleState.AttackDirection.Right);
-        }
-        if (Input.GetKeyDown(LeftArrow)) {
-        	ProcessInput(BattleState.AttackDirection.Left);
-        }
+        // if (Input.GetKeyDown(UpArrow)) {
+        // 	ProcessInput(BattleState.AttackDirection.Up);
+        // }
+        // if (Input.GetKeyDown(DownArrow)) {
+        // 	ProcessInput(BattleState.AttackDirection.Down);
+        // }
+        // if (Input.GetKeyDown(RightArrow)) {
+        // 	ProcessInput(BattleState.AttackDirection.Right);
+        // }
+        // if (Input.GetKeyDown(LeftArrow)) {
+        // 	ProcessInput(BattleState.AttackDirection.Left);
+        // }
     }
 }
