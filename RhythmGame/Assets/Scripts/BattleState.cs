@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class BattleState : MonoBehaviour
 {
     public const double PLAYER_HEALTH_DEFAULT = 500.0;
-    public const double ENEMY_HEALTH_DEFAULT = 1000.0;
+    public const double ENEMY_HEALTH_DEFAULT = 50.0;
 
 
 	public enum State {
@@ -41,6 +41,8 @@ public class BattleState : MonoBehaviour
   
     GameObject magicBar;
     GameObject Dialog;
+    GameObject Combooo;
+
     public Sprite MAGICBARALL1;
     public Sprite MAGICBARALL2;
     public Sprite MAGICBARALL3;
@@ -212,6 +214,7 @@ public class BattleState : MonoBehaviour
         currCountImg = GameObject.Find("Countdown");
         magicBar = GameObject.Find("PlayerMana");
         Dialog = GameObject.Find("Dialog");
+        Combooo = GameObject.Find("Combo");
         StartCoroutine(StartCountdown());
     }
 
@@ -242,6 +245,8 @@ public class BattleState : MonoBehaviour
     public void ResetComboCounter()
     {
         ComboAmount = 0;
+        Combooo.GetComponent<Image>().enabled = false;
+        
         //ComboAmountChanged(FindObjectOfType<BattleState>(), new ComboAmountChangedArgs(ComboAmount));
     }
 
@@ -249,6 +254,9 @@ public class BattleState : MonoBehaviour
     {
         ComboAmount++;
         print("COMBO" + ComboAmount.ToString());
+        if (ComboAmount > 3) {
+            Combooo.GetComponent<Image>().enabled = true;
+        }
         //ComboAmountChanged(FindObjectOfType<BattleState>(), new ComboAmountChangedArgs(ComboAmount));
     }
 

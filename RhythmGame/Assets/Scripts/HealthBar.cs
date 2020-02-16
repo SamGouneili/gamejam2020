@@ -151,7 +151,7 @@ public class HealthBar : MonoBehaviour
         {
             currImage.GetComponent<Image>().sprite = Health26;
         }
-        else if (currHealth >= 0)
+        else if (currHealth < (BS.GetPlayerMaxHealth() / 27))
         {
             currImage.GetComponent<Image>().sprite = Health0;
         }
