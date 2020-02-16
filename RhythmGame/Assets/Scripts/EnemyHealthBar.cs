@@ -152,7 +152,7 @@ public class EnemyHealthBar : MonoBehaviour
         {
             currImage.GetComponent<Image>().sprite = Health26;
         }
-        else if (currHealth >= 0)
+        else if (currHealth < (maxHealth / 27))
         {
             currImage.GetComponent<Image>().sprite = Health0;
         }
