@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\NewScript.cs" />
      <Compile Include="Assets\Scripts\Attack.cs" />
      <Compile Include="Assets\Scripts\BattleState.cs" />
      <Compile Include="Assets\Scripts\GameMode.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets\Scripts\PlayerAttack.cs" />
      <Compile Include="Assets\Scripts\PlayerState.cs" />
      <Compile Include="Assets\Scripts\Stats.cs" />
+     <Compile Include="Assets\Scripts\StatsScene.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/keeyan/Documents/Unity Games/gamejam2020/RhythmGame/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
