@@ -3,8 +3,6 @@ using System;
 using System.Numerics;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
 
 public class BattleState : MonoBehaviour
 {
@@ -67,41 +65,6 @@ public class BattleState : MonoBehaviour
 	private double startTime;
 
     float currCountdownValue;
-
-    GameObject currCountImg;
-    GameObject magicBar;
-
-    public Sprite MAGICBARALL1;
-    public Sprite MAGICBARALL2;
-    public Sprite MAGICBARALL3;
-    public Sprite MAGICBARALL4;
-    public Sprite MAGICBARALL5;
-    public Sprite MAGICBARALL6;
-    public Sprite MAGICBARALL7;
-    public Sprite MAGICBARALL8;
-    public Sprite MAGICBARALL9;
-    public Sprite MAGICBARALL10;
-    public Sprite MAGICBARALL11;
-    public Sprite MAGICBARALL12;
-    public Sprite MAGICBARALL13;
-    public Sprite MAGICBARALL14;
-    public Sprite MAGICBARALL15;
-    public Sprite MAGICBARALL16;
-    public Sprite MAGICBARALL17;
-    public Sprite MAGICBARALL18;
-    public Sprite MAGICBARALL19;
-    public Sprite MAGICBARALL20;
-    public Sprite MAGICBARALL21;
-    public Sprite MAGICBARALL22;
-    public Sprite MAGICBARALL23;
-    public Sprite MAGICBARALL24;
-    public Sprite MAGICBARALL25;
-    public Sprite MAGICBARALL26;
-
-    public Sprite five;
-    public Sprite six;
-    public Sprite seven;
-    public Sprite eight;
 
 	int getBeatTime() {
         int ret;
@@ -168,19 +131,8 @@ public class BattleState : MonoBehaviour
         currCountdownValue = countdownValue;
         while (currCountdownValue > 0)
         {
-            if (currCountdownValue == 4) {
-                music.Play();
-                currCountImg.GetComponent<Image>().enabled = true;
-                currCountImg.GetComponent<Image>().sprite = five;
-            } else if (currCountdownValue == 3) {
-                currCountImg.GetComponent<Image>().sprite = six;
-            } else if (currCountdownValue == 2) {
-                currCountImg.GetComponent<Image>().sprite = seven;
-            } else if (currCountdownValue == 1) {
-                currCountImg.GetComponent<Image>().sprite = eight;
-            }
             Debug.Log("Countdown: " + currCountdownValue);
-            yield return new WaitForSeconds(0.46153846153f);
+            yield return new WaitForSeconds(1.0f);
             currCountdownValue--;
         }
         startBeat();
@@ -190,8 +142,6 @@ public class BattleState : MonoBehaviour
     {
         bps = bpm/60;
         AttackCalculator = FindObjectOfType<Attack>();
-        currCountImg = GameObject.Find("Countdown");
-        magicBar = GameObject.Find("PlayerMana");
         StartCoroutine(StartCountdown());
     }
 
@@ -200,7 +150,6 @@ public class BattleState : MonoBehaviour
     void Update()
     {
     	if (startBeatFlag) {
-            MagicBarChanger();
     		if (currentTime() >= totalBeat/bps) {
 	        	++totalBeat; 
 	           	++beat;
@@ -244,8 +193,7 @@ public class BattleState : MonoBehaviour
     	//Debug.Assert(!startBeatFlag);
     	startBeatFlag = true;
     	startTime = Time.time;
-        currCountImg.GetComponent<Image>().enabled = false;
-    	//music.Play();
+    	music.Play();
         print("PLAY MUSIC");
     }
 
@@ -296,64 +244,6 @@ public class BattleState : MonoBehaviour
         {
             double DamageDealt = PerformAttack();
             DealDamageToEnemy(DamageDealt);
-        }
-    }
-
-    public void MagicBarChanger() 
-    {
-        // Beats total = 283
-        if (totalBeat <= 10) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL1;
-        } else if (totalBeat <= 21) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL2;
-        } else if (totalBeat <= 32) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL3;
-        } else if (totalBeat <= 42) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL4;
-        } else if (totalBeat <= 53) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL5;
-        } else if (totalBeat <= 64) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL6;
-        } else if (totalBeat <= 74) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL7;
-        } else if (totalBeat <= 85) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL8;
-        } else if (totalBeat <= 96) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL9;
-        } else if (totalBeat <= 107) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL10;
-        } else if (totalBeat <= 118) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL11;
-        } else if (totalBeat <= 129) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL12;
-        } else if (totalBeat <= 140) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL13;
-        } else if (totalBeat <= 151) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL14;
-        } else if (totalBeat <= 162) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL15;
-        } else if (totalBeat <= 173) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL16;
-        } else if (totalBeat <= 184) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL17;
-        } else if (totalBeat <= 195) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL18;
-        } else if (totalBeat <= 206) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL19;
-        } else if (totalBeat <= 217) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL20;
-        } else if (totalBeat <= 228) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL21;
-        } else if (totalBeat <= 239) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL22;
-        } else if (totalBeat <= 250) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL23;
-        } else if (totalBeat <= 261) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL24;
-        } else if (totalBeat <= 272) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL25;
-        } else if (totalBeat <= 283) {
-            magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL26;
         }
     }
 
