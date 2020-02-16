@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyArrow : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class EnemyArrow : MonoBehaviour
     void Start()
     {
         BS = FindObjectOfType<BattleState>();
-        currImage = GameObject.Find("EnemyAttackDirection");
+        currImage = GameObject.Find("EnemyArrow");
     }
 
     // Update is called once per frame
@@ -26,23 +27,23 @@ public class EnemyArrow : MonoBehaviour
         BattleState.AttackDirection currDir = BS.GetEnemyAttackDirection();
         if (currDir == BattleState.AttackDirection.Up)
         {
-            currImage.GetComponent<SpriteRenderer>().sprite = UP;
+            currImage.GetComponent<Image>().sprite = UP;
         }
         else if (currDir == BattleState.AttackDirection.Down)
         {
-            currImage.GetComponent<SpriteRenderer>().sprite = DOWN;
+            currImage.GetComponent<Image>().sprite = DOWN;
         }
         else if (currDir == BattleState.AttackDirection.Right)
         {
-            currImage.GetComponent<SpriteRenderer>().sprite = RIGHT;
+            currImage.GetComponent<Image>().sprite = RIGHT;
         }
         else if (currDir == BattleState.AttackDirection.Left)
         {
-            currImage.GetComponent<SpriteRenderer>().sprite = LEFT;
+            currImage.GetComponent<Image>().sprite = LEFT;
         }
         else if (currDir == BattleState.AttackDirection.None)
         {
-            currImage.GetComponent<SpriteRenderer>().sprite = X;
+            currImage.GetComponent<Image>().sprite = X;
         }
     }
 }

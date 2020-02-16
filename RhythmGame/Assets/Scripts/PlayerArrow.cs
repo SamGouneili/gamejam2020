@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerArrow : MonoBehaviour
 {
     BattleState BS;
+    Attack A;
     GameObject currImage;
 
     public Sprite UP;
@@ -12,37 +14,64 @@ public class PlayerArrow : MonoBehaviour
     public Sprite RIGHT;
     public Sprite LEFT;
     public Sprite X;
+    public Sprite UP_PERF;
+    public Sprite DOWN_PERF;
+    public Sprite RIGHT_PERF;
+    public Sprite LEFT_PERF;
 
     // Start is called before the first frame update
     void Start()
     {
         BS = FindObjectOfType<BattleState>();
-        currImage = GameObject.Find("PlayerAttackDirection");
+        A = FindObjectOfType<Attack>();
+        currImage = GameObject.Find("PlayerArrow");
     }
 
     // Update is called once per frame
     void Update()
     {
         BattleState.AttackDirection currDir = BS.GetCurrentAttackDirection();
-        if (currDir == BattleState.AttackDirection.Up)
+        if (A.lastHitTiming != Attack.AttackTiming.Perfect)
         {
-            currImage.GetComponent<SpriteRenderer>().sprite = UP;
+            if (currDir == BattleState.AttackDirection.Up)
+            {
+                currImage.GetComponent<Image>().sprite = UP;
+            }
+            else if (currDir == BattleState.AttackDirection.Down)
+            {
+                currImage.GetComponent<Image>().sprite = DOWN;
+            }
+            else if (currDir == BattleState.AttackDirection.Right)
+            {
+                currImage.GetComponent<Image>().sprite = RIGHT;
+            }
+            else if (currDir == BattleState.AttackDirection.Left)
+            {
+                currImage.GetComponent<Image>().sprite = LEFT;
+            }
+            else if (currDir == BattleState.AttackDirection.None)
+            {
+                currImage.GetComponent<Image>().sprite = X;
+            }
         }
-        else if (currDir == BattleState.AttackDirection.Down)
+        else
         {
-            currImage.GetComponent<SpriteRenderer>().sprite = DOWN;
-        }
-        else if (currDir == BattleState.AttackDirection.Right)
-        {
-            currImage.GetComponent<SpriteRenderer>().sprite = RIGHT;
-        }
-        else if (currDir == BattleState.AttackDirection.Left)
-        {
-            currImage.GetComponent<SpriteRenderer>().sprite = LEFT;
-        }
-        else if (currDir == BattleState.AttackDirection.None)
-        {
-            currImage.GetComponent<SpriteRenderer>().sprite = X;
+            if (currDir == BattleState.AttackDirection.Up)
+            {
+                currImage.GetComponent<Image>().sprite = UP_PERF;
+            }
+            else if (currDir == BattleState.AttackDirection.Down)
+            {
+                currImage.GetComponent<Image>().sprite = DOWN_PERF;
+            }
+            else if (currDir == BattleState.AttackDirection.Right)
+            {
+                currImage.GetComponent<Image>().sprite = RIGHT_PERF;
+            }
+            else if (currDir == BattleState.AttackDirection.Left)
+            {
+                currImage.GetComponent<Image>().sprite = LEFT_PERF;
+            }
         }
     }
 }

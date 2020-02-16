@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class BattleState : MonoBehaviour
 {
     public const double PLAYER_HEALTH_DEFAULT = 500.0;
-    public const double ENEMY_HEALTH_DEFAULT = 50.0;
+    public const double ENEMY_HEALTH_DEFAULT = 1000.0;
 
 
 	public enum State {
@@ -29,6 +29,7 @@ public class BattleState : MonoBehaviour
     int BreakCount;
 
     private AttackDirection EnemyAttackDirection = AttackDirection.None;
+    private AttackDirection NextEnemyAttackDirection = AttackDirection.None;
     private AttackDirection CurrentAttackDirection = AttackDirection.None;
 
     private double CurrPlayerHealth = PLAYER_HEALTH_DEFAULT;
@@ -90,7 +91,7 @@ public class BattleState : MonoBehaviour
 
     private int ComboAmount = 0;
 
-	public AudioSource audio; // TESTING
+	//public AudioSource audio; // TESTING
 	public AudioSource music;
 	
 	private int totalBeat = 0;
@@ -158,9 +159,19 @@ public class BattleState : MonoBehaviour
         return EnemyAttackDirection;
     }
 
+    public AttackDirection GetNextEnemyAttackDirection()
+    {
+        return NextEnemyAttackDirection;
+    }
+
     public void SetEnemyAttackDirection(AttackDirection NewAttackDirection)
     {
         EnemyAttackDirection = NewAttackDirection;
+    }
+
+    public void SetNextEnemyAttackDirection(AttackDirection NewAttackDirection)
+    {
+        NextEnemyAttackDirection = NewAttackDirection;
     }
 
     // Start is called before the first frame update
@@ -198,13 +209,28 @@ public class BattleState : MonoBehaviour
     public IEnumerator StartBreakCountdown(double countdownBreakValue = 32.0)
     {
         currCountdownBreakValue = countdownBreakValue;
-        while (currCountdownValue > 0)
+        while (currCountdownBreakValue > 0)
         {
-            Debug.Log("Countdown: " + currCountdownValue);
+            Debug.Log("Countdown: " + currCountdownBreakValue);
             yield return new WaitForSeconds(0.46153846153f);
-            currCountdownValue--;
+            currCountdownBreakValue--;
         }
         SetCurrentState(State.Attack);
+    }
+
+    public IEnumerator UpdateEnemyArrow()
+    {
+        if (currentState != State.Neutral)
+        {
+            yield return new WaitForSeconds(0.1f);
+            EnemyAttackDirection = NextEnemyAttackDirection;
+            SetNextEnemyAttackDirection((AttackDirection)UnityEngine.Random.Range(0, 4));
+        }
+        else
+        {
+            SetNextEnemyAttackDirection(AttackDirection.None);
+        }
+        
     }
 
     void Start()
@@ -295,7 +321,8 @@ public class BattleState : MonoBehaviour
     	startTime = Time.time;
         currCountImg.GetComponent<Image>().enabled = false;
         //music.Play();
-        print("PLAY MUSIC");
+        SetCurrentState(State.Attack);
+        //print("PLAY MUSIC");
     }
 
     // Return the current time with respect to the start time
@@ -307,8 +334,7 @@ public class BattleState : MonoBehaviour
 
     // Executes on every beat
     void onBeat() {
-    	//audio.Play();
-        SetEnemyAttackDirection((AttackDirection)UnityEngine.Random.Range(0, 4));
+        //audio.Play();
         if (Time.time - lastInputTime >= 0.4)
         {
             ProcessInput(AttackDirection.None);
@@ -322,6 +348,7 @@ public class BattleState : MonoBehaviour
     		//print("State has changed " + currentState.ToString()); 
 			beat = 0;
     	}
+        StartCoroutine(UpdateEnemyArrow());
     }
 
     // Returns the closest distance to the next or previous beat

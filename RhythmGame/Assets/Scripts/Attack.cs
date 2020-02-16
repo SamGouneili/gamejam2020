@@ -17,11 +17,13 @@ public class Attack : MonoBehaviour
     private const double MISS_DEFENCE_MULT = 1.00;
     private const double DIRECTION_BONUS_MULT = 1.10;
     private const double PERFECT_TIMING_THRESH = 0.0;
-    private const double GOOD_TIMING_THRESH = 0.1;
-    private const double OKAY_TIMING_THRESH = 0.25;
-    private const double MISS_TIMING_THRESH = 0.4;
+    private const double GOOD_TIMING_THRESH = 0.05;
+    private const double OKAY_TIMING_THRESH = 0.15;
+    private const double MISS_TIMING_THRESH = 0.35;
 
     private BattleState BS;
+
+    public AttackTiming lastHitTiming;
 
     public enum AttackTiming
     {
@@ -48,6 +50,8 @@ public class Attack : MonoBehaviour
             Hit = false;
         }
 
+        lastHitTiming = GetTiming();
+
         if (Hit)
         {
             BS.IncrementComboCounter();
@@ -73,6 +77,8 @@ public class Attack : MonoBehaviour
             BS.ResetComboCounter();
             Hit = true;
         }
+
+        lastHitTiming = GetTiming();
 
         if (Hit)
         {
@@ -118,7 +124,7 @@ public class Attack : MonoBehaviour
         }
         GameObject DA = GameObject.Find("DamageToEnemy");
         DA.GetComponent<Text>().text = Damage.ToString();
-        if (TimingBonus == AttackTiming.Miss)
+        if (TimingBonus == AttackTiming.Miss && BS.GetCurrentState() != BattleState.State.Neutral)
         {
             DA.GetComponent<Text>().text = "Miss";
         }
