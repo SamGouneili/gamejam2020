@@ -100,6 +100,7 @@ public class Attack : MonoBehaviour
             default:
                 break;
         }
+        print("IN CALC DAMAGE: DAMAGE IS" + Damage.ToString());
         return Damage;
     }
 

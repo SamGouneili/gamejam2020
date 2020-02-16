@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class BattleState : MonoBehaviour
 {
-    private const double PLAYER_HEALTH_DEFAULT = 500.0;
-    private const double ENEMY_HEALTH_DEFAULT = 5000.0;
+    public const double PLAYER_HEALTH_DEFAULT = 500.0;
+    public const double ENEMY_HEALTH_DEFAULT = 1000.0;
 
     public event EventHandler<StateChangedArgs> StateChanged;
     public event EventHandler<PlayerHealthChangedArgs> PlayerHealthChanged;
@@ -66,18 +66,24 @@ public class BattleState : MonoBehaviour
 	private double startTime;
 
 	int getBeatTime() {
-		switch (currentState) {
-			case State.Attack:
-				return attackTime;
-			case State.Defend:
-				return defendTime;
-			case State.Neutral:
-				return neutralTime;
-			default:
-				return attackTime;
-
+        int ret;
+        switch (currentState)
+		{
+            case (State.Attack):
+                ret = attackTime;
+                break;
+            case (State.Defend):
+                ret = defendTime;
+                break;
+            case (State.Neutral):
+                ret = neutralTime;
+                break;
+            default:
+                ret = 0;
+                break;
 		}
-	}
+        return ret;
+    }
 
 	State getNextState() {
 		switch (currentState) {
@@ -100,6 +106,11 @@ public class BattleState : MonoBehaviour
     public void SetAttackDirection(AttackDirection NewAttackDirection)
     {
         CurrentAttackDirection = NewAttackDirection;
+    }
+
+    public State GetCurrentState()
+    {
+        return currentState;
     }
 
     public AttackDirection GetEnemyAttackDirection()
@@ -131,15 +142,15 @@ public class BattleState : MonoBehaviour
 
 	        	onBeat();
 
-	        	print(totalBeat);
-	        	print(currentState);
+	        	//print(totalBeat);
+	        	//print(currentState);
 	        }
     	}
         
         // TESTING
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-        	print(getBeatDist());
-        }
+        //if (Input.GetKeyDown(KeyCode.UpArrow)) {
+        	//print(getBeatDist());
+        //}
         // TESTING
         if (Input.GetKeyDown(KeyCode.Space)) {
         	startBeat();
@@ -157,6 +168,7 @@ public class BattleState : MonoBehaviour
     public void IncrementComboCounter()
     {
         ComboAmount++;
+        print(ComboAmount);
         //ComboAmountChanged(FindObjectOfType<BattleState>(), new ComboAmountChangedArgs(ComboAmount));
     }
 
@@ -169,27 +181,31 @@ public class BattleState : MonoBehaviour
     // Begin the beat tracking
     // Only should be called once - to start the beat.
     public void startBeat() {
-    	Debug.Assert(!startBeatFlag);
+    	//Debug.Assert(!startBeatFlag);
     	startBeatFlag = true;
     	startTime = Time.time;
     	music.Play();
+        print("PLAY MUSIC");
     }
 
     // Return the current time with respect to the start time
     // Only call this AFTER startBeat has been called.
     private double currentTime() {
-    	Debug.Assert(startBeatFlag); 
+    	//Debug.Assert(startBeatFlag); 
     	return Time.time - startTime;
     }
 
     // Executes on every beat
     void onBeat() {
     	audio.Play();
-
-    	if (beat == getBeatTime()) {
+        SetEnemyAttackDirection((AttackDirection)UnityEngine.Random.Range(0, 4));
+        //print("EnemyAttackDirection" + EnemyAttackDirection.ToString());
+        GameObject BC = GameObject.Find("BeatNotify");
+        BC.GetComponent<BeatCircle>().CycleImages();
+        if (beat == getBeatTime()) {
     		// Change the state, reset beat
     		SetCurrentState(getNextState());
-    		print("State has changed!"); 
+    		//print("State has changed " + currentState.ToString()); 
 			beat = 0;
     	}
     }
@@ -222,6 +238,26 @@ public class BattleState : MonoBehaviour
         }
     }
 
+    public double GetPlayerHealth()
+	{
+        return CurrPlayerHealth;
+	}
+
+    public double GetEnemyHealth()
+    {
+        return CurrEnemyHealth;
+    }
+
+    public double GetPlayerMaxHealth()
+	{
+        return PLAYER_HEALTH_DEFAULT;
+	}
+
+    public double GetEnemyMaxHealth()
+    {
+        return ENEMY_HEALTH_DEFAULT;
+    }
+
     private double PerformAttack()
     {
         return AttackCalculator.PerformAttack();
@@ -235,17 +271,27 @@ public class BattleState : MonoBehaviour
     private void DealDamageToPlayer(double DamageToDeal)
     {
         CurrPlayerHealth -= DamageToDeal;
+        print(DamageToDeal);
         if (CurrPlayerHealth <= 0)
         {
             // END BATTLEj
+            PlayerDied();
+            print("PLAYER DIED");
         }
-        DamageEvent(FindObjectOfType<BattleState>(), new DamageEventArgs(DamageToDeal));
+        //DamageEvent(FindObjectOfType<BattleState>(), new DamageEventArgs(DamageToDeal));
         //PlayerHealthChanged(FindObjectOfType<BattleState>(), new PlayerHealthChangedArgs(CurrPlayerHealth, DamageToDeal));
     }
 
     private void DealDamageToEnemy(double DamageToDeal)
     {
         CurrEnemyHealth -= DamageToDeal;
+        print(DamageToDeal);
+        if (CurrEnemyHealth <= 0)
+		{
+            // END BATTLE
+            PlayerDied();
+            print("ENEMY DIED");
+		}
         //EnemyHealthChanged(FindObjectOfType<BattleState>(), new EnemyHealthChangedArgs(CurrEnemyHealth, DamageToDeal));
     }
 
