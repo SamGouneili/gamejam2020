@@ -52,7 +52,6 @@ public class BattleState : MonoBehaviour
 	public int defendTime;
 	public int neutralTime;
 
-    public GameObject scroll;
 
     private int ComboAmount = 0;
 
@@ -64,6 +63,8 @@ public class BattleState : MonoBehaviour
 
 	private bool startBeatFlag = false;
 	private double startTime;
+
+    float currCountdownValue;
 
 	int getBeatTime() {
         int ret;
@@ -125,10 +126,23 @@ public class BattleState : MonoBehaviour
 
     // Start is called before the first frame update
 
+     public IEnumerator StartCountdown(float countdownValue = 10)
+    {
+        currCountdownValue = countdownValue;
+        while (currCountdownValue > 0)
+        {
+            Debug.Log("Countdown: " + currCountdownValue);
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
+        startBeat();
+    }
+
     void Start()
     {
         bps = bpm/60;
         AttackCalculator = FindObjectOfType<Attack>();
+        StartCoroutine(StartCountdown());
     }
 
 
@@ -151,11 +165,6 @@ public class BattleState : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.UpArrow)) {
         	//print(getBeatDist());
         //}
-        // TESTING
-        if (Input.GetKeyDown(KeyCode.Space)) {
-        	startBeat();
-            PlayerDied();
-        }
 
     }
 
@@ -297,9 +306,7 @@ public class BattleState : MonoBehaviour
 
     private void PlayerDied()
     { 
-        scroll.SetActive(true);
-        Stats stats = scroll.GetComponent<Stats>();
-
+        print("died lollers99");
     }
 
     // CALLED ON SETCURRENTSTATE() DONE
