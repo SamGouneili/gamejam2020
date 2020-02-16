@@ -3,22 +3,12 @@ using System;
 using System.Numerics;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleState : MonoBehaviour
 {
     public const double PLAYER_HEALTH_DEFAULT = 500.0;
     public const double ENEMY_HEALTH_DEFAULT = 1000.0;
-
-    public event EventHandler<StateChangedArgs> StateChanged;
-    public event EventHandler<PlayerHealthChangedArgs> PlayerHealthChanged;
-    public event EventHandler<EnemyHealthChangedArgs> EnemyHealthChanged;
-    public event EventHandler<DamageEventArgs> DamageEvent;
-    public event EventHandler<TimerBarChangedArgs> TimerBarChanged;
-    public event EventHandler BeatNotify;
-    public event EventHandler<PlayerDirectionChangedArgs> PlayerDirectionChanged;
-    public event EventHandler<EnemyDirectionChangedArgs> EnemyDirectionChanged;
-    public event EventHandler<ComboAmountChangedArgs> ComboAmountChanged;
-    public event EventHandler<DialogueEventArgs> DialogueEvent;
 
 
 	public enum State {
@@ -36,6 +26,8 @@ public class BattleState : MonoBehaviour
         None
     }
 
+    int BreakCount;
+
     private AttackDirection EnemyAttackDirection = AttackDirection.None;
     private AttackDirection CurrentAttackDirection = AttackDirection.None;
 
@@ -47,6 +39,8 @@ public class BattleState : MonoBehaviour
 	private State currentState = State.Neutral;
 	public double bpm;
 	private double bps;
+
+    private double BREAK_COUNTDOWN_LENGTH;
 
 	public int attackTime;
 	public int defendTime;
@@ -64,7 +58,11 @@ public class BattleState : MonoBehaviour
 	private bool startBeatFlag = false;
 	private double startTime;
 
+    private double lastInputTime;
+
     float currCountdownValue;
+
+    double currCountdownBreakValue;
 
 	int getBeatTime() {
         int ret;
@@ -138,9 +136,22 @@ public class BattleState : MonoBehaviour
         startBeat();
     }
 
+    public IEnumerator StartBreakCountdown(double countdownBreakValue)
+    {
+        currCountdownBreakValue = countdownBreakValue;
+        while (currCountdownValue > 0)
+        {
+            Debug.Log("Countdown: " + currCountdownValue);
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
+        SetCurrentState(State.Attack);
+    }
+
     void Start()
     {
         bps = bpm/60;
+        BREAK_COUNTDOWN_LENGTH = bps * 8.0;
         AttackCalculator = FindObjectOfType<Attack>();
         StartCoroutine(StartCountdown());
     }
@@ -177,7 +188,7 @@ public class BattleState : MonoBehaviour
     public void IncrementComboCounter()
     {
         ComboAmount++;
-        print(ComboAmount);
+        print("COMBO" + ComboAmount.ToString());
         //ComboAmountChanged(FindObjectOfType<BattleState>(), new ComboAmountChangedArgs(ComboAmount));
     }
 
@@ -208,6 +219,10 @@ public class BattleState : MonoBehaviour
     void onBeat() {
     	audio.Play();
         SetEnemyAttackDirection((AttackDirection)UnityEngine.Random.Range(0, 4));
+        if (Time.time - lastInputTime >= 0.4)
+        {
+            ProcessInput(AttackDirection.None);
+        }
         //print("EnemyAttackDirection" + EnemyAttackDirection.ToString());
         GameObject BC = GameObject.Find("BeatNotify");
         BC.GetComponent<BeatCircle>().CycleImages();
@@ -233,17 +248,27 @@ public class BattleState : MonoBehaviour
     public void ProcessInput(AttackDirection InputDirection)
     {
         SetAttackDirection(InputDirection);
+
+        if (InputDirection == AttackDirection.None)
+        {
+            GameObject DA = GameObject.Find("DamageToEnemy");
+            DA.GetComponent<Text>().text = "Miss";
+            DA.GetComponent<Text>().enabled = true;
+            ResetComboCounter();
+        }
         // need path for player defending
-        if (currentState == State.Defend)
+        if (currentState == State.Defend && InputDirection != AttackDirection.None)
         {
             double DamageDealt = PerformDefence();
             DealDamageToPlayer(DamageDealt);
+            lastInputTime = Time.time;
         }
         // path for player attacking
-        else if (currentState == State.Attack)
+        else if (currentState == State.Attack && InputDirection != AttackDirection.None)
         {
             double DamageDealt = PerformAttack();
             DealDamageToEnemy(DamageDealt);
+            lastInputTime = Time.time;
         }
     }
 
@@ -295,113 +320,37 @@ public class BattleState : MonoBehaviour
     {
         CurrEnemyHealth -= DamageToDeal;
         print(DamageToDeal);
-        if (CurrEnemyHealth <= 0)
+        if (CurrEnemyHealth <= 0 && BreakCount == 3)
 		{
             // END BATTLE
-            PlayerDied();
             print("ENEMY DIED");
 		}
+        else if (CurrEnemyHealth <= 0.25 * GetEnemyMaxHealth() && BreakCount == 2)
+        {
+            BreakCount++;
+            DialogueBreak();
+        }
+        else if (CurrEnemyHealth <= 0.50 * GetEnemyMaxHealth() && BreakCount == 1)
+        {
+            BreakCount++;
+            DialogueBreak();
+        }
+        else if (CurrEnemyHealth <= 0.75 * GetEnemyMaxHealth() && BreakCount == 0)
+        {
+            BreakCount++;
+            DialogueBreak();
+        }
         //EnemyHealthChanged(FindObjectOfType<BattleState>(), new EnemyHealthChangedArgs(CurrEnemyHealth, DamageToDeal));
+    }
+
+    private void DialogueBreak()
+    {
+        StartCoroutine(StartBreakCountdown(BREAK_COUNTDOWN_LENGTH));
+        SetCurrentState(State.Neutral);
     }
 
     private void PlayerDied()
     { 
         print("died lollers99");
-    }
-
-    // CALLED ON SETCURRENTSTATE() DONE
-    public class StateChangedArgs : EventArgs
-    {
-        public StateChangedArgs(State InputState)
-        {
-            NewState = InputState;
-        }
-        public State NewState { get; private set; }
-    }
-
-    // CALLED ON SETPLAYERHEALTH() DONE
-    public class PlayerHealthChangedArgs : EventArgs
-    {
-        public PlayerHealthChangedArgs(double InNewHealth, double InAmountDiff)
-        {
-            NewHealth = InNewHealth;
-            AmountDiff = InAmountDiff;
-        }
-        public double NewHealth { get; private set; }
-
-        public double AmountDiff { get; private set; }
-    }
-
-    // CALLED ON SETENEMYHEALTH() DONE
-    public class EnemyHealthChangedArgs : EventArgs
-    {
-        public EnemyHealthChangedArgs(double InNewHealth, double InAmountDiff)
-        {
-            NewHealth = InNewHealth;
-            AmountDiff = InAmountDiff;
-        }
-        public double NewHealth { get; private set; }
-
-        public double AmountDiff { get; private set; }
-    }
-
-    // CALLED ON DEALDAMAGE()
-    public class DamageEventArgs : EventArgs
-    {
-        public DamageEventArgs(double damage)
-        {
-            Damage = damage;
-        }
-        public double Damage { get; private set; }
-    }
-
-    // CALLED ON DECREMENTTIMERPHASE()
-    public class TimerBarChangedArgs : EventArgs
-    {
-        public TimerBarChangedArgs(double percentFull)
-        {
-            PercentFull = percentFull;
-        }
-        public double PercentFull { get; private set; }
-    }
-
-    // CALLED ON SETPLAYERDIRECTION()
-    public class PlayerDirectionChangedArgs : EventArgs
-    {
-        public PlayerDirectionChangedArgs(AttackDirection newDirection)
-        {
-            NewDirection = newDirection;
-        }
-        public AttackDirection NewDirection { get; private set; }
-    }
-
-    // CALLED ON SETENEMYDIRECTION()
-    public class EnemyDirectionChangedArgs : EventArgs
-    {
-        public EnemyDirectionChangedArgs(AttackDirection newDirection)
-        {
-            NewDirection = newDirection;
-        }
-        public AttackDirection NewDirection { get; private set; }
-    }
-
-    // CALLED ON CHANGECOMBOCOUNTER()
-    public class ComboAmountChangedArgs : EventArgs
-    {
-        public ComboAmountChangedArgs(int newCombo)
-        {
-            NewCombo = newCombo;
-        }
-        public int NewCombo { get; private set; }
-    }
-
-    // CALLED ON STARTDIALOGUE()
-    public class DialogueEventArgs : EventArgs
-    {
-        public DialogueEventArgs(int whichBoss)
-        {
-            WhichBoss = whichBoss;
-        }
-        public int WhichBoss { get; private set; }
     }
 }

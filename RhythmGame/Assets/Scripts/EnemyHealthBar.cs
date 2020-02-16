@@ -60,99 +60,99 @@ public class EnemyHealthBar : MonoBehaviour
         {
             currImage.GetComponent<Image>().sprite = Health3;
         }
-        else if (currHealth <= (maxHealth / 27 * 23))
+        else if (currHealth >= (maxHealth / 27 * 23))
         {
             currImage.GetComponent<Image>().sprite = Health4;
         }
-        else if (currHealth <= (maxHealth / 27 * 22))
+        else if (currHealth >= (maxHealth / 27 * 22))
         {
             currImage.GetComponent<Image>().sprite = Health5;
         }
-        else if (currHealth <= (maxHealth / 27 * 21))
+        else if (currHealth >= (maxHealth / 27 * 21))
         {
             currImage.GetComponent<Image>().sprite = Health6;
         }
-        else if (currHealth <= (maxHealth / 27 * 20))
+        else if (currHealth >= (maxHealth / 27 * 20))
         {
             currImage.GetComponent<Image>().sprite = Health75percent;
         }
-        else if (currHealth <= (maxHealth / 27 * 19))
+        else if (currHealth >= (maxHealth / 27 * 19))
         {
             currImage.GetComponent<Image>().sprite = Health8;
         }
-        else if (currHealth <= (maxHealth / 27 * 18))
+        else if (currHealth >= (maxHealth / 27 * 18))
         {
             currImage.GetComponent<Image>().sprite = Health9;
         }
-        else if (currHealth <= (maxHealth / 27 * 17))
+        else if (currHealth >= (maxHealth / 27 * 17))
         {
             currImage.GetComponent<Image>().sprite = Health10;
         }
-        else if (currHealth <= (maxHealth / 27 * 16))
+        else if (currHealth >= (maxHealth / 27 * 16))
         {
             currImage.GetComponent<Image>().sprite = Health11;
         }
-        else if (currHealth <= (maxHealth / 27 * 15))
+        else if (currHealth >= (maxHealth / 27 * 15))
         {
             currImage.GetComponent<Image>().sprite = Health12;
         }
-        else if (currHealth <= (maxHealth / 27 * 14))
+        else if (currHealth >= (maxHealth / 27 * 14))
         {
             currImage.GetComponent<Image>().sprite = Health50percent;
         }
-        else if (currHealth <= (maxHealth / 27 * 13))
+        else if (currHealth >= (maxHealth / 27 * 13))
         {
             currImage.GetComponent<Image>().sprite = Health14;
         }
-        else if (currHealth <= (maxHealth / 27 * 12))
+        else if (currHealth >= (maxHealth / 27 * 12))
         {
             currImage.GetComponent<Image>().sprite = Health15;
         }
-        else if (currHealth <= (maxHealth / 27 * 11))
+        else if (currHealth >= (maxHealth / 27 * 11))
         {
             currImage.GetComponent<Image>().sprite = Health16;
         }
-        else if (currHealth <= (maxHealth / 27 * 10))
+        else if (currHealth >= (maxHealth / 27 * 10))
         {
             currImage.GetComponent<Image>().sprite = Health17;
         }
-        else if (currHealth <= (maxHealth / 27 * 9))
+        else if (currHealth >= (maxHealth / 27 * 9))
         {
             currImage.GetComponent<Image>().sprite = Health18;
         }
-        else if (currHealth <= (maxHealth / 27 * 8))
+        else if (currHealth >= (maxHealth / 27 * 8))
         {
             currImage.GetComponent<Image>().sprite = Health25percent;
         }
-        else if (currHealth <= (maxHealth / 27 * 7))
+        else if (currHealth >= (maxHealth / 27 * 7))
         {
             currImage.GetComponent<Image>().sprite = Health20;
         }
-        else if (currHealth <= (maxHealth / 27 * 6))
+        else if (currHealth >= (maxHealth / 27 * 6))
         {
             currImage.GetComponent<Image>().sprite = Health21;
         }
-        else if (currHealth <= (maxHealth / 27 * 5))
+        else if (currHealth >= (maxHealth / 27 * 5))
         {
             currImage.GetComponent<Image>().sprite = Health22;
         }
-        else if (currHealth <= (maxHealth / 27 * 4))
+        else if (currHealth >= (maxHealth / 27 * 4))
         {
             currImage.GetComponent<Image>().sprite = Health23;
         }
-        else if (currHealth <= (maxHealth / 27 * 3))
+        else if (currHealth >= (maxHealth / 27 * 3))
         {
             currImage.GetComponent<Image>().sprite = Health24;
         }
-        else if (currHealth <= (maxHealth / 27 * 2))
+        else if (currHealth >= (maxHealth / 27 * 2))
         {
             currImage.GetComponent<Image>().sprite = Health25;
         }
-        else if (currHealth <= (maxHealth / 27))
+        else if (currHealth >= (maxHealth / 27))
         {
             currImage.GetComponent<Image>().sprite = Health26;
         }
-        else if (currHealth <= 0)
+        else if (currHealth >= 0)
         {
             currImage.GetComponent<Image>().sprite = Health0;
         }
