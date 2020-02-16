@@ -66,10 +66,14 @@
     <Compile Include="Assets\Scripts\Attack.cs" />
     <Compile Include="Assets\Scripts\BattleState.cs" />
     <Compile Include="Assets\Scripts\BeatCircle.cs" />
+    <Compile Include="Assets\Scripts\BlockIndEnemy.cs" />
+    <Compile Include="Assets\Scripts\BlockIndicator.cs" />
+    <Compile Include="Assets\Scripts\DamageToEnemy.cs" />
     <Compile Include="Assets\Scripts\EnemyArrow.cs" />
     <Compile Include="Assets\Scripts\EnemyHealthBar.cs" />
     <Compile Include="Assets\Scripts\GameMode.cs" />
     <Compile Include="Assets\Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\HeroDamageAmountText.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />

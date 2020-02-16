@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Attack : MonoBehaviour
 {
@@ -38,7 +39,8 @@ public class Attack : MonoBehaviour
 
     public double PerformAttack()
     {
-        bool Hit = !IsBlock();
+        bool Block = IsBlock();
+        bool Hit = !Block;
         AttackTiming Timing = GetTiming();
         if (Timing == AttackTiming.Miss)
         {
@@ -51,13 +53,20 @@ public class Attack : MonoBehaviour
             BS.IncrementComboCounter();
             return CalculateDamage(IsDirectionBonus(), GetTiming());
         }
+        else if (Block)
+        {
+            GameObject BT = GameObject.Find("BlockTextEnemy");
+            BT.GetComponent<Text>().enabled = true;
+        }
 
         return 0.0;
     }
 
     public double PerformDefence()
     {
-        bool Hit = !IsBlock();
+        bool Block = IsBlock();
+        bool Hit = !Block;
+       
         AttackTiming BlockTiming = GetTiming();
         if (BlockTiming == AttackTiming.Miss)
         {
@@ -68,6 +77,13 @@ public class Attack : MonoBehaviour
         if (Hit)
         {
             return CalculateDamageToPlayer(IsDirectionBonus(), GetTiming());
+        }
+        else if (Block)
+        {
+            GameObject BT = GameObject.Find("BlockText");
+            BT.GetComponent<Text>().enabled = true;
+            BS.IncrementComboCounter();
+            return 0.0;
         }
         else
         {
@@ -100,7 +116,13 @@ public class Attack : MonoBehaviour
             default:
                 break;
         }
-        print("IN CALC DAMAGE: DAMAGE IS" + Damage.ToString());
+        GameObject DA = GameObject.Find("DamageToEnemy");
+        DA.GetComponent<Text>().text = Damage.ToString();
+        if (TimingBonus == AttackTiming.Miss)
+        {
+            DA.GetComponent<Text>().text = "Miss";
+        }
+        DA.GetComponent<Text>().enabled = true;
         return Damage;
     }
 
@@ -128,6 +150,13 @@ public class Attack : MonoBehaviour
             default:
                 break;
         }
+        GameObject DA = GameObject.Find("HeroDamage");
+        DA.GetComponent<Text>().text = Damage.ToString();
+        if (TimingBonus == AttackTiming.Miss)
+        {
+            DA.GetComponent<Text>().text = "Miss";
+        }
+        DA.GetComponent<Text>().enabled = true;
         return Damage;
     }
 
