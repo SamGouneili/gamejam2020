@@ -2284,7 +2284,7 @@ GameObject:
   - component: {fileID: 2012550377}
   - component: {fileID: 2012550376}
   m_Layer: 5
-  m_Name: BlockText (1)
+  m_Name: BlockTextEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2306,7 +2306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -331.1, y: -88}
+  m_AnchoredPosition: {x: 316.65, y: 59}
   m_SizeDelta: {x: 150.4, y: 65.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2012550376
@@ -2318,7 +2318,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2012550374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e92e31c066c284f3890247dec3c02965, type: 3}
+  m_Script: {fileID: 11500000, guid: 2be6ae6cadff14de2b63ccd8281d97e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2012550377
