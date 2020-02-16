@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class BattleState : MonoBehaviour
 {
     public const double PLAYER_HEALTH_DEFAULT = 500.0;
@@ -37,39 +36,11 @@ public class BattleState : MonoBehaviour
 
     private Attack AttackCalculator;
 
-	private State currentState = State.Neutral;
-	public double bpm;
-	private double bps;
-
-    private double BREAK_COUNTDOWN_LENGTH;
-
-	public int attackTime;
-	public int defendTime;
-	public int neutralTime;
-
-
-    private int ComboAmount = 0;
-
-	public AudioSource audio; // TESTING
-	public AudioSource music;
-	
-	private int totalBeat = 0;
-	private int beat = 0;
-
-	private bool startBeatFlag = false;
-	private double startTime;
-
-    private double lastInputTime;
-
-    float currCountdownValue;
-
-    double currCountdownBreakValue;
+    private GameObject currCountImg;
     private int dialogCount = 0;
-
-    GameObject currCountImg;
+  
     GameObject magicBar;
     GameObject Dialog;
-
     public Sprite MAGICBARALL1;
     public Sprite MAGICBARALL2;
     public Sprite MAGICBARALL3;
@@ -96,15 +67,41 @@ public class BattleState : MonoBehaviour
     public Sprite MAGICBARALL24;
     public Sprite MAGICBARALL25;
     public Sprite MAGICBARALL26;
-
     public Sprite five;
     public Sprite six;
     public Sprite seven;
     public Sprite eight;
-
     public Sprite Dialog1;
     public Sprite Dialog2;
     public Sprite Dialog3;
+
+    private State currentState = State.Neutral;
+	public double bpm;
+	private double bps;
+
+    private double BREAK_COUNTDOWN_LENGTH;
+
+	public int attackTime;
+	public int defendTime;
+	public int neutralTime;
+
+
+    private int ComboAmount = 0;
+
+	public AudioSource audio; // TESTING
+	public AudioSource music;
+	
+	private int totalBeat = 0;
+	private int beat = 0;
+
+	private bool startBeatFlag = false;
+	private double startTime;
+
+    private double lastInputTime;
+
+    float currCountdownValue;
+
+    double currCountdownBreakValue;
 
 	int getBeatTime() {
         int ret;
@@ -131,7 +128,7 @@ public class BattleState : MonoBehaviour
 			case State.Attack:
 				return State.Defend;
 			case State.Defend:
-				return State.Neutral;
+				return State.Attack;
 			case State.Neutral:
 				return State.Attack;
 			default: 
@@ -171,15 +168,22 @@ public class BattleState : MonoBehaviour
         currCountdownValue = countdownValue;
         while (currCountdownValue > 0)
         {
-            if (currCountdownValue == 4) {
+            if (currCountdownValue == 4)
+            {
                 music.Play();
                 currCountImg.GetComponent<Image>().enabled = true;
                 currCountImg.GetComponent<Image>().sprite = five;
-            } else if (currCountdownValue == 3) {
+            }
+            else if (currCountdownValue == 3)
+            {
                 currCountImg.GetComponent<Image>().sprite = six;
-            } else if (currCountdownValue == 2) {
+            }
+            else if (currCountdownValue == 2)
+            {
                 currCountImg.GetComponent<Image>().sprite = seven;
-            } else if (currCountdownValue == 1) {
+            }
+            else if (currCountdownValue == 1)
+            {
                 currCountImg.GetComponent<Image>().sprite = eight;
             }
             Debug.Log("Countdown: " + currCountdownValue);
@@ -189,13 +193,13 @@ public class BattleState : MonoBehaviour
         startBeat();
     }
 
-    public IEnumerator StartBreakCountdown(double countdownBreakValue)
+    public IEnumerator StartBreakCountdown(double countdownBreakValue = 32.0)
     {
         currCountdownBreakValue = countdownBreakValue;
         while (currCountdownValue > 0)
         {
             Debug.Log("Countdown: " + currCountdownValue);
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.46153846153f);
             currCountdownValue--;
         }
         SetCurrentState(State.Attack);
@@ -203,8 +207,7 @@ public class BattleState : MonoBehaviour
 
     void Start()
     {
-        bps = bpm/60;
-        BREAK_COUNTDOWN_LENGTH = bps * 8.0;
+        bps = bpm / 60;
         AttackCalculator = FindObjectOfType<Attack>();
         currCountImg = GameObject.Find("Countdown");
         magicBar = GameObject.Find("PlayerMana");
@@ -218,7 +221,7 @@ public class BattleState : MonoBehaviour
     {
     	if (startBeatFlag) {
             MagicBarChanger();
-    		if (currentTime() >= totalBeat/bps) {
+            if (currentTime() >= totalBeat/bps) {
 	        	++totalBeat; 
 	           	++beat;
 
@@ -252,21 +255,27 @@ public class BattleState : MonoBehaviour
     public void SetCurrentState(State NewState)
     {
         currentState = NewState;
-        if (currentState == State.Neutral && dialogCount == 0) {
+        if (currentState == State.Neutral && dialogCount == 0)
+        {
             Dialog.GetComponent<Image>().sprite = Dialog1;
             Dialog.GetComponent<Image>().enabled = true;
             dialogCount++;
-        } else if (currentState == State.Neutral && dialogCount == 1) {
+        }
+        else if (currentState == State.Neutral && dialogCount == 1)
+        {
             Dialog.GetComponent<Image>().sprite = Dialog2;
             Dialog.GetComponent<Image>().enabled = true;
             dialogCount++;
-        } else if (currentState == State.Neutral && dialogCount == 2) {
+        }
+        else if (currentState == State.Neutral && dialogCount == 2)
+        {
             Dialog.GetComponent<Image>().sprite = Dialog3;
             Dialog.GetComponent<Image>().enabled = true;
-        } else {
+        }
+        else
+        {
             Dialog.GetComponent<Image>().enabled = false;
         }
-        
         //StateChanged(FindObjectOfType<BattleState>(), new StateChangedArgs(NewState));
     }
 
@@ -277,7 +286,7 @@ public class BattleState : MonoBehaviour
     	startBeatFlag = true;
     	startTime = Time.time;
         currCountImg.GetComponent<Image>().enabled = false;
-    	//music.Play();
+        //music.Play();
         print("PLAY MUSIC");
     }
 
@@ -345,60 +354,111 @@ public class BattleState : MonoBehaviour
         }
     }
 
-    public void MagicBarChanger() 
+    public void MagicBarChanger()
     {
         // Beats total = 283
-        if (totalBeat <= 10) {
+        if (totalBeat <= 10)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL1;
-        } else if (totalBeat <= 21) {
+        }
+        else if (totalBeat <= 21)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL2;
-        } else if (totalBeat <= 32) {
+        }
+        else if (totalBeat <= 32)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL3;
-        } else if (totalBeat <= 42) {
+        }
+        else if (totalBeat <= 42)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL4;
-        } else if (totalBeat <= 53) {
+        }
+        else if (totalBeat <= 53)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL5;
-        } else if (totalBeat <= 64) {
+        }
+        else if (totalBeat <= 64)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL6;
-        } else if (totalBeat <= 74) {
+        }
+        else if (totalBeat <= 74)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL7;
-        } else if (totalBeat <= 85) {
+        }
+        else if (totalBeat <= 85)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL8;
-        } else if (totalBeat <= 96) {
+        }
+        else if (totalBeat <= 96)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL9;
-        } else if (totalBeat <= 107) {
+        }
+        else if (totalBeat <= 107)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL10;
-        } else if (totalBeat <= 118) {
+        }
+        else if (totalBeat <= 118)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL11;
-        } else if (totalBeat <= 129) {
+        }
+        else if (totalBeat <= 129)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL12;
-        } else if (totalBeat <= 140) {
+        }
+        else if (totalBeat <= 140)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL13;
-        } else if (totalBeat <= 151) {
+        }
+        else if (totalBeat <= 151)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL14;
-        } else if (totalBeat <= 162) {
+        }
+        else if (totalBeat <= 162)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL15;
-        } else if (totalBeat <= 173) {
+        }
+        else if (totalBeat <= 173)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL16;
-        } else if (totalBeat <= 184) {
+        }
+        else if (totalBeat <= 184)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL17;
-        } else if (totalBeat <= 195) {
+        }
+        else if (totalBeat <= 195)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL18;
-        } else if (totalBeat <= 206) {
+        }
+        else if (totalBeat <= 206)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL19;
-        } else if (totalBeat <= 217) {
+        }
+        else if (totalBeat <= 217)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL20;
-        } else if (totalBeat <= 228) {
+        }
+        else if (totalBeat <= 228)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL21;
-        } else if (totalBeat <= 239) {
+        }
+        else if (totalBeat <= 239)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL22;
-        } else if (totalBeat <= 250) {
+        }
+        else if (totalBeat <= 250)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL23;
-        } else if (totalBeat <= 261) {
+        }
+        else if (totalBeat <= 261)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL24;
-        } else if (totalBeat <= 272) {
+        }
+        else if (totalBeat <= 272)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL25;
-        } else if (totalBeat <= 283) {
+        }
+        else if (totalBeat <= 283)
+        {
             magicBar.GetComponent<SpriteRenderer>().sprite = MAGICBARALL26;
         }
     }
@@ -476,7 +536,7 @@ public class BattleState : MonoBehaviour
 
     private void DialogueBreak()
     {
-        StartCoroutine(StartBreakCountdown(BREAK_COUNTDOWN_LENGTH));
+        StartCoroutine(StartBreakCountdown());
         SetCurrentState(State.Neutral);
     }
 

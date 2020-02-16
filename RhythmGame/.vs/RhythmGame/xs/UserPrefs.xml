@@ -2,34 +2,26 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleState.cs">
     <Files>
       <File FileName="Assets/Scripts/GameMode.cs" Line="1" Column="5" />
-      <File FileName="Assets/Scripts/Attack.cs" Line="5" Column="1" />
-      <File FileName="Assets/Scripts/BattleState.cs" Line="407" Column="2" />
-      <File FileName="Assets/Scripts/EnemyHealthBar.cs" Line="21" Column="51" />
-      <File FileName="Assets/Scripts/HealthBar.cs" Line="54" Column="66" />
+      <File FileName="Assets/Scripts/Attack.cs" />
+      <File FileName="Assets/Scripts/BattleState.cs" Line="144" Column="1" />
+      <File FileName="Assets/Scripts/EnemyHealthBar.cs" />
+      <File FileName="Assets/Scripts/HealthBar.cs" />
+      <File FileName="Assets/Scripts/BeatCircle.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="RhythmGame" expanded="True">
-            <Node name="Assembly-CSharp" expanded="True">
-              <Node name="Assets" expanded="True">
-                <Node name="Scripts" expanded="True">
-                  <Node name="BattleState.cs" selected="True" />
-                </Node>
-              </Node>
-            </Node>
+            <Node name="Assets" expanded="True" />
           </Node>
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.UnityEngine.TestRunner PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="2ffcf3b3-9d30-41de-9fec-659a0792a05f" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="4a6f8973-ba47-43f6-b1ad-3961871385c6" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
