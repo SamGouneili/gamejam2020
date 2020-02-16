@@ -12,7 +12,8 @@ public class Stats : MonoBehaviour
     void Start()
     {
         perfectRate.GetComponent<Text>().text = "Perfect Hit Rate: 100%";
-        perfectRate.GetComponent<Text>().text = "Hit Rate: 100%";
+        hitRate.GetComponent<Text>().text = "Hit Rate: 100%";
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
