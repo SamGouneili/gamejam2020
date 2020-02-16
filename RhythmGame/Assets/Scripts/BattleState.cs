@@ -42,7 +42,6 @@ public class BattleState : MonoBehaviour
     GameObject magicBar;
     GameObject Dialog;
     GameObject Combooo;
-    GameObject Boss;
 
     public Sprite MAGICBARALL1;
     public Sprite MAGICBARALL2;
@@ -77,7 +76,6 @@ public class BattleState : MonoBehaviour
     public Sprite Dialog1;
     public Sprite Dialog2;
     public Sprite Dialog3;
-    public Sprite EnemyDeath;
 
     private State currentState = State.Neutral;
 	public double bpm;
@@ -217,7 +215,6 @@ public class BattleState : MonoBehaviour
         magicBar = GameObject.Find("PlayerMana");
         Dialog = GameObject.Find("Dialog");
         Combooo = GameObject.Find("Combo");
-        Boss = GameObject.Find("Boss");
         StartCoroutine(StartCountdown());
     }
 
@@ -525,8 +522,6 @@ public class BattleState : MonoBehaviour
         if (CurrEnemyHealth <= 0 && BreakCount == 3)
 		{
             // END BATTLE
-            Boss.GetComponent<SpriteRenderer>().sprite = EnemyDeath;
-            Boss.GetComponent<Transform>().localScale = new UnityEngine.Vector3(1800f, 1800f, 0f);
             print("ENEMY DIED");
 		}
         else if (CurrEnemyHealth <= 0.25 * GetEnemyMaxHealth() && BreakCount == 2)
