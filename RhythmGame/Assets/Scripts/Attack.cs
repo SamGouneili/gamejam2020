@@ -17,15 +17,6 @@ public class Attack : MonoBehaviour
 
     private BattleState BS;
 
-    public enum AttackDirection
-    {
-        Up,
-        Down,
-        Left,
-        Right,
-        None
-    }
-
     public enum AttackTiming
     {
         Perfect,
@@ -34,27 +25,10 @@ public class Attack : MonoBehaviour
         Miss
     }
 
-    private AttackDirection EnemyAttackDirection;
-
-    private AttackDirection CurrentAttackDirection;
-
     // Start is called before the first frame update
     void Start()
     {
-        CurrentAttackDirection = AttackDirection.None;
-        EnemyAttackDirection = AttackDirection.None;
-
         BS = FindObjectOfType<BattleState>();
-    }
-
-    public AttackDirection GetCurrentAttackDirection()
-    {
-        return CurrentAttackDirection;
-    }
-
-    public void SetAttackDirection(AttackDirection NewAttackDirection)
-    {
-        CurrentAttackDirection = NewAttackDirection;
     }
 
     public double PerformAttack()
@@ -63,11 +37,13 @@ public class Attack : MonoBehaviour
         AttackTiming Timing = GetTiming();
         if (Timing == AttackTiming.Miss)
         {
+            BS.ResetComboCounter();
             Hit = false;
         }
 
         if (Hit)
         {
+            BS.IncrementComboCounter();
             return CalculateDamage(IsDirectionBonus(), GetTiming());
         }
 
@@ -105,10 +81,10 @@ public class Attack : MonoBehaviour
     {
         bool DirectionBonus = false;
 
-        if (CurrentAttackDirection == AttackDirection.Up && EnemyAttackDirection == AttackDirection.Down
-            || CurrentAttackDirection == AttackDirection.Down && EnemyAttackDirection == AttackDirection.Up
-            || CurrentAttackDirection == AttackDirection.Left && EnemyAttackDirection == AttackDirection.Right
-            || CurrentAttackDirection == AttackDirection.Right && EnemyAttackDirection == AttackDirection.Left)
+        if (BS.GetCurrentAttackDirection() == BattleState.AttackDirection.Up && BS.GetEnemyAttackDirection() == BattleState.AttackDirection.Down
+            || BS.GetCurrentAttackDirection() == BattleState.AttackDirection.Down && BS.GetEnemyAttackDirection() == BattleState.AttackDirection.Up
+            || BS.GetCurrentAttackDirection() == BattleState.AttackDirection.Left && BS.GetEnemyAttackDirection() == BattleState.AttackDirection.Right
+            || BS.GetCurrentAttackDirection() == BattleState.AttackDirection.Right && BS.GetEnemyAttackDirection() == BattleState.AttackDirection.Left)
         {
             DirectionBonus = true;
         }
@@ -145,10 +121,10 @@ public class Attack : MonoBehaviour
     {
         bool Block = false;
 
-        if (CurrentAttackDirection == AttackDirection.Up && EnemyAttackDirection == AttackDirection.Up
-            || CurrentAttackDirection == AttackDirection.Down && EnemyAttackDirection == AttackDirection.Down
-            || CurrentAttackDirection == AttackDirection.Left && EnemyAttackDirection == AttackDirection.Left
-            || CurrentAttackDirection == AttackDirection.Right && EnemyAttackDirection == AttackDirection.Right)
+        if (BS.GetCurrentAttackDirection() == BattleState.AttackDirection.Up && BS.GetEnemyAttackDirection() == BattleState.AttackDirection.Up
+            || BS.GetCurrentAttackDirection() == BattleState.AttackDirection.Down && BS.GetEnemyAttackDirection() == BattleState.AttackDirection.Down
+            || BS.GetCurrentAttackDirection() == BattleState.AttackDirection.Left && BS.GetEnemyAttackDirection() == BattleState.AttackDirection.Left
+            || BS.GetCurrentAttackDirection() == BattleState.AttackDirection.Right && BS.GetEnemyAttackDirection() == BattleState.AttackDirection.Right)
         {
             Block = true;
         }

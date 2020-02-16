@@ -1,17 +1,22 @@
 ﻿<Properties StartupConfiguration="{793867B7-CF3B-D77D-3E90-3211AA357D6D}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Attack.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleState.cs">
     <Files>
       <File FileName="Assets/Scripts/GameMode.cs" Line="17" Column="31" />
-      <File FileName="Assets/Scripts/MainMenu.cs" />
-      <File FileName="Assets/Scripts/BattleState.cs" Line="100" Column="12" />
+      <File FileName="Assets/Scripts/MainMenu.cs" Line="19" Column="25" />
+      <File FileName="Assets/Scripts/BattleState.cs" Line="181" Column="1" />
+      <File FileName="Assets/Scripts/Attack.cs" Line="18" Column="28" />
       <File FileName="Assets/Scripts/PlayerState.cs" Line="54" Column="43" />
-      <File FileName="Assets/Scripts/Attack.cs.cs" Line="62" Column="34" />
-      <File FileName="Assets/Scripts/PlayerAttack.cs" Line="7" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="RhythmGame" expanded="True" selected="True" />
+          <Node name="RhythmGame" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="BattleState.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
