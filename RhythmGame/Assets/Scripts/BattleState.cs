@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class BattleState : MonoBehaviour
 {
     public const double PLAYER_HEALTH_DEFAULT = 500.0;
-    public const double ENEMY_HEALTH_DEFAULT = 1000.0;
+    public const double ENEMY_HEALTH_DEFAULT = 300.0;
 
 
 	public enum State {
@@ -100,7 +100,8 @@ public class BattleState : MonoBehaviour
 	private bool startBeatFlag = false;
 	private double startTime;
 
-    private double lastInputTime;
+    public double lastInputTime;
+    public double lastInputBeatDist;
 
     float currCountdownValue;
 
@@ -206,15 +207,33 @@ public class BattleState : MonoBehaviour
         startBeat();
     }
 
-    public IEnumerator StartBreakCountdown(double countdownBreakValue = 32.0)
+    public IEnumerator StartBreakCountdown(double countdownBreakValue = 10)
     {
         currCountdownBreakValue = countdownBreakValue;
         while (currCountdownBreakValue > 0)
         {
+            if (currCountdownBreakValue == 4)
+            {
+                currCountImg.GetComponent<Image>().enabled = true;
+                currCountImg.GetComponent<Image>().sprite = five;
+            }
+            else if (currCountdownBreakValue == 3)
+            {
+                currCountImg.GetComponent<Image>().sprite = six;
+            }
+            else if (currCountdownBreakValue == 2)
+            {
+                currCountImg.GetComponent<Image>().sprite = seven;
+            }
+            else if (currCountdownBreakValue == 1)
+            {
+                currCountImg.GetComponent<Image>().sprite = eight;
+            }
             Debug.Log("Countdown: " + currCountdownBreakValue);
             yield return new WaitForSeconds(0.46153846153f);
             currCountdownBreakValue--;
         }
+        currCountImg.GetComponent<Image>().enabled = false;
         SetCurrentState(State.Attack);
     }
 
@@ -337,8 +356,10 @@ public class BattleState : MonoBehaviour
         //audio.Play();
         if (Time.time - lastInputTime >= 0.4)
         {
+            
             ProcessInput(AttackDirection.None);
         }
+        CheckActions();
         //print("EnemyAttackDirection" + EnemyAttackDirection.ToString());
         GameObject BC = GameObject.Find("BeatNotify");
         BC.GetComponent<BeatCircle>().CycleImages();
@@ -349,6 +370,30 @@ public class BattleState : MonoBehaviour
 			beat = 0;
     	}
         StartCoroutine(UpdateEnemyArrow());
+    }
+
+    private void CheckActions()
+    {
+        AttackDirection InputDirection = GetCurrentAttackDirection();
+        if (InputDirection == AttackDirection.None && currentState != State.Neutral)
+        {
+            GameObject DA = GameObject.Find("DamageToEnemy");
+            DA.GetComponent<Text>().text = "Miss";
+            DA.GetComponent<Text>().enabled = true;
+            ResetComboCounter();
+        }
+        // need path for player defending
+        if (currentState == State.Defend)
+        {
+            double DamageDealt = PerformDefence();
+            DealDamageToPlayer(DamageDealt);
+        }
+        // path for player attacking
+        else if (currentState == State.Attack && InputDirection != AttackDirection.None)
+        {
+            double DamageDealt = PerformAttack();
+            DealDamageToEnemy(DamageDealt);
+        }
     }
 
     // Returns the closest distance to the next or previous beat
@@ -365,27 +410,10 @@ public class BattleState : MonoBehaviour
     public void ProcessInput(AttackDirection InputDirection)
     {
         SetAttackDirection(InputDirection);
-
-        if (InputDirection == AttackDirection.None)
+        if (GetCurrentAttackDirection() != AttackDirection.None)
         {
-            GameObject DA = GameObject.Find("DamageToEnemy");
-            DA.GetComponent<Text>().text = "Miss";
-            DA.GetComponent<Text>().enabled = true;
-            ResetComboCounter();
-        }
-        // need path for player defending
-        if (currentState == State.Defend && InputDirection != AttackDirection.None)
-        {
-            double DamageDealt = PerformDefence();
-            DealDamageToPlayer(DamageDealt);
             lastInputTime = Time.time;
-        }
-        // path for player attacking
-        else if (currentState == State.Attack && InputDirection != AttackDirection.None)
-        {
-            double DamageDealt = PerformAttack();
-            DealDamageToEnemy(DamageDealt);
-            lastInputTime = Time.time;
+            lastInputBeatDist = getBeatDist();
         }
     }
 

@@ -122,13 +122,16 @@ public class Attack : MonoBehaviour
             default:
                 break;
         }
-        GameObject DA = GameObject.Find("DamageToEnemy");
-        DA.GetComponent<Text>().text = Damage.ToString();
-        if (TimingBonus == AttackTiming.Miss && BS.GetCurrentState() != BattleState.State.Neutral)
+        if (BS.GetCurrentState() != BattleState.State.Neutral)
         {
-            DA.GetComponent<Text>().text = "Miss";
+            GameObject DA = GameObject.Find("DamageToEnemy");
+            DA.GetComponent<Text>().text = Damage.ToString();
+            if (TimingBonus == AttackTiming.Miss && BS.GetCurrentState() != BattleState.State.Neutral)
+            {
+                DA.GetComponent<Text>().text = "Miss";
+            }
+            DA.GetComponent<Text>().enabled = true;
         }
-        DA.GetComponent<Text>().enabled = true;
         return Damage;
     }
 
@@ -184,7 +187,7 @@ public class Attack : MonoBehaviour
     private AttackTiming GetTiming()
     {
         AttackTiming Timing = AttackTiming.Miss;
-        double DistToNextBeat = BS.getBeatDist();
+        double DistToNextBeat = BS.lastInputBeatDist;
 
         if (DistToNextBeat >= MISS_TIMING_THRESH)
         {
