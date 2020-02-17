@@ -364,7 +364,6 @@ public class BattleState : MonoBehaviour
         //audio.Play();
         if (Time.time - lastInputTime >= 0.4)
         {
-            
             ProcessInput(AttackDirection.None);
         }
         CheckActions();
