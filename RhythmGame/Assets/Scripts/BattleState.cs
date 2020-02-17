@@ -2,6 +2,7 @@
 using System;
 using System.Numerics;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -211,6 +212,35 @@ public class BattleState : MonoBehaviour
             currCountdownValue--;
         }
         startBeat();
+    }
+
+    public IEnumerator DeathCountdown(float countdownValue = 5)
+    {
+        currCountdownValue = countdownValue;
+        while (currCountdownValue > 0)
+        {
+            Debug.Log("Countdown: " + currCountdownValue);
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
+    }
+
+    public IEnumerator WinCountdown(float countdownValue = 5)
+    {
+        currCountdownValue = countdownValue;
+        while (currCountdownValue > 0)
+        {
+            Debug.Log("Countdown: " + currCountdownValue);
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
+        Scene scene = SceneManager.GetActiveScene();
+        if (SceneManager.GetSceneByBuildIndex(scene.buildIndex + 1) != null)
+        {
+            SceneManager.LoadScene(scene.buildIndex + 1);
+        }
     }
 
     public IEnumerator StartBreakCountdown(double countdownBreakValue = 10)
@@ -587,6 +617,7 @@ public class BattleState : MonoBehaviour
             Boss.GetComponent<SpriteRenderer>().sprite = EnemyDeath;
             Boss.GetComponent<Transform>().localScale = new UnityEngine.Vector3(1800f, 1800f, 0f);
             print("ENEMY DIED");
+            StartCoroutine(WinCountdown());
 		}
         else if (CurrEnemyHealth <= 0.25 * GetEnemyMaxHealth() && BreakCount == 2)
         {
@@ -618,5 +649,6 @@ public class BattleState : MonoBehaviour
         Shrimp.GetComponent<Transform>().localScale = new UnityEngine.Vector3(1800f, 1800f, 0f);
         Shrimp.GetComponent<Transform>().Translate(0f, -20f, 0f);
         print("died lollers99");
+        StartCoroutine(DeathCountdown());
     }
 }
