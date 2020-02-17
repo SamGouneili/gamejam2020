@@ -894,6 +894,8 @@ MonoBehaviour:
   Dialog1: {fileID: 21300000, guid: 603e3f8b6ca814a438571b109ef21819, type: 3}
   Dialog2: {fileID: 21300000, guid: 32e864eb923ee4d8d8d0d76141b23758, type: 3}
   Dialog3: {fileID: 21300000, guid: 33d9f1d3f1db9429480a025044a023a8, type: 3}
+  EnemyDeath: {fileID: 21300000, guid: 36eecfeadcb5144e2a85504b1262d1cc, type: 3}
+  ShrimpDeath: {fileID: 21300000, guid: 44213f5c8352c42a8b6be735010e5f7d, type: 3}
   bpm: 130
   attackTime: 10
   defendTime: 10
